@@ -4,10 +4,8 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Main {
-
-    static String currentRoom;
     static String currentUser;
-
+    static String currentRoom;
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
 
@@ -25,9 +23,13 @@ public class Main {
 //		Chatroom.clearMessages("chat1");
 
         InitialView(scnr);
+
+        roomView(scnr, currentUser);
+        String currRoom;
+
     }
 
-    static void InitialView(Scanner scnr) throws IOException {
+    static String InitialView(Scanner scnr) throws IOException {
 
         System.out.println("Welcome to Chat App!");
         System.out.println("Please select:");
@@ -35,15 +37,16 @@ public class Main {
         System.out.println("---------------------------");
 
         String input = scnr.next();
+        String currUser = "";
         input = input.toLowerCase();
         switch(input) {
             case "r":
             case "register":
-                register(scnr);
+                currUser = register(scnr);
                 break;
             case "l":
             case "login":
-                login(scnr);
+                currUser = login(scnr);
                 break;
             case "q":
             case "quit":
@@ -169,7 +172,7 @@ public class Main {
         return false;
     }
 
-    static void register(Scanner scnr) throws IOException {
+    static String register(Scanner scnr) throws IOException {
         System.out.print("\nEnter a valid username: ");
         scnr.nextLine();
         String input = scnr.nextLine();
@@ -193,10 +196,11 @@ public class Main {
         String newPassword = input;
         Account.createAccount(newUsername, newPassword);
         System.out.println("\nAccount successfully created!");
+        return newUsername;
         //TODO optional: automatically log them in, otherwise just call login method
     }
 
-    static void login(Scanner scnr) throws IOException {
+    static String login(Scanner scnr) throws IOException {
         System.out.print("\nEnter your username: ");
         scnr.nextLine();
         String input = scnr.nextLine();
@@ -213,12 +217,42 @@ public class Main {
             input = scnr.nextLine();
         }
         System.out.print("\nSuccessfully logged in!");
+        return currentUsername;
         //TODO finish login idk set current account logged in, open new menu etc
     }
 
     static void quit() {
         System.out.println("Goodbye!");
         System.exit(0);
+    }
+
+    static void roomView(Scanner scnr, String currUser) {
+        System.out.printf("Welcome to \"%s\" \"%s\"\n", currentRoom,currUser);
+        System.out.println("Type \"/help\" for help.");
+        System.out.println("---------------------------");
+//        Chatroom.getMessages(currentRoom);
+
+        String input = "";
+        while(!input.equals("/leave")) {
+            input = scnr.nextLine();
+            if(input.equals("/list")) {
+//                Chatroom.getUsers(currentRoom);
+
+            }
+            else if(input.equals("/history")) {
+
+
+            }
+            else if(input.equals("/help")) {
+
+
+            }
+//            Chatroom.addMessage(currentRoom, input);
+            System.out.printf("%s: %s\n", currUser, input);
+
+        }
+
+
     }
 
 }
