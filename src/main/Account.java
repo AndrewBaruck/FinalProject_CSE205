@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 import java.io.*;
 
-public class Account {
+public abstract class Account {
 	
 	/*  Example account file (name is user_[username].txt):
 	 * 

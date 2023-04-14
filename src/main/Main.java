@@ -5,6 +5,9 @@ import java.io.*;
 
 public class Main {
 
+    static String currentRoom;
+    static String currentUser;
+
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
 
@@ -21,10 +24,10 @@ public class Main {
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
 
-        firstOpening(scnr);
+        InitialView(scnr);
     }
 
-    static void firstOpening(Scanner scnr) throws IOException {
+    static void InitialView(Scanner scnr) throws IOException {
 
         System.out.println("Welcome to Chat App!");
         System.out.println("Please select:");
@@ -48,10 +51,122 @@ public class Main {
                 break;
             default:
                 System.out.println("Invalid input!\n");
-                firstOpening(scnr);
+                InitialView(scnr);
                 break;
         }
 
+        MainView(scnr);
+
+    }
+
+    private static void MainView(Scanner scnr){
+        System.out.println("Login Sucessful!");
+        System.out.println("Please select from the following options" );
+        System.out.println("(J)oin,(C)reate,(A)ccount,(L)ougout");
+
+        String selection = scnr.next();
+        String selectionJustified = selection.toLowerCase();
+
+        String roomName;
+
+        switch (selectionJustified) {
+            case "j", "join":
+                String roomInput = SelectRoom(scnr);
+                if(Chatroom.chatroomExists(roomInput) == true){
+                    roomName = roomInput;
+                    System.out.println();
+                    System.out.println("Sucessfully joined "
+                    + roomName + " Chatroom!");
+                }
+                else{
+                    System.out.println("Chatroom " +
+                            roomInput + "does not exist, create it!");
+                }
+                MainView(scnr);
+                break;
+            case "c", "create":
+                String createdName;
+                System.out.println("Enter the name of the room you would like to create");
+                System.out.println("Room name must only be numbers and letters");
+                String inputName = scnr.next();
+                boolean checker = NameWorks(inputName.toLowerCase());
+                if (checker = true) {
+                    createdName = inputName.toLowerCase();
+                    System.out.println("Chatroom created sucessfully, joining!");
+                    roomName = createdName;
+                    System.out.println("Sucessfully joined "
+                            + roomName + " Chatroom!");
+                }
+                else{
+                    System.out.println("The name you have entered is not allowed!");
+                    MainView(scnr);
+                    break;
+                }
+                break;
+            case "a", "account":
+                AccountUpdate(scnr);
+                break;
+            case "l", "logout":
+
+
+
+
+
+
+        }
+
+
+
+
+    }
+
+    private static void AccountUpdate(Scanner scanner){
+        System.out.println("Please select what you want to update on your account:");
+        System.out.println("Update: (U)sername or (P)assword");
+
+        String selection = scanner.next();
+        String selectionJustified = selection.toLowerCase();
+
+        switch(selectionJustified){
+            case "u", "username":
+                System.out.print("ENTER YOUR NEW USERNAME: ");
+                String user = scanner.next();
+                //Account.updateUsername(currentUser, user);
+
+        }
+
+
+    }
+
+    private static String SelectRoom(Scanner scanner){
+        System.out.println("Enter the name of the Chatroom you want to join:");
+        String input = scanner.next();
+        String inputJustified = input.toLowerCase();
+
+        return inputJustified;
+    }
+
+    private static boolean NameWorks(String subject){
+        int length = subject.length();
+
+        for(int i = 0; i < length; i++ ){
+            char a = subject.charAt(i);
+                if(IsNumberOrLetter(a) == true){
+
+                }
+                else{
+                    return false;
+                }
+        }
+        return true;
+
+    }
+
+    private static boolean IsNumberOrLetter(char character){
+        if(Character.isLetter(character) == true || Character.isDigit(character) == true){
+            return true;
+        }
+        return false;
     }
 
     static void register(Scanner scnr) throws IOException {

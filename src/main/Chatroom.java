@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Chatroom {
+public abstract class Chatroom {
 
     /*  Example account file (name is chatroom_[chatroomName].txt):
      *
