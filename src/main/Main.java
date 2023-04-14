@@ -22,7 +22,7 @@ public class Main {
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
 
-        InitialView(scnr);
+        currentUser = InitialView(scnr);
 
         roomView(scnr, currentUser);
         String currRoom;
@@ -60,6 +60,7 @@ public class Main {
 
         MainView(scnr);
 
+        return currUser;
     }
 
     private static void MainView(Scanner scnr){
