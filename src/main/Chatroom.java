@@ -43,10 +43,10 @@ public class Chatroom {
         }
     }
 
-    public static void deleteChatroom(String chatroomName) {
-        File inputFile = new File("chatroom_" + chatroomName + ".txt");
-        System.out.println("Chatroom successfully deleted: " + inputFile.delete());
-    }
+    public static boolean deleteChatroom(String chatroomName) {
+		File inputFile = new File("chatroom_" + chatroomName + ".txt");
+		return inputFile.delete();
+	}
 
     public static void createChatroom(String chatroomName) throws IOException {
         File inputFile = new File("chatroom_" + chatroomName + ".txt");
