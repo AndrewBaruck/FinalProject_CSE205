@@ -111,37 +111,58 @@ public class Main {
                 AccountUpdate(scnr);
                 break;
             case "l", "logout":
-
-
-
-
-
-
+                System.out.println("ARE YOU SURE YOU WANT TO LOG OUT? Y/N");
+                String confirmation = scnr.nextLine();
+                String confirmationJustified = confirmation.toLowerCase();
+                if(confirmationJustified.equals("y")){
+                    System.out.println("LOGGED OUT, RETURNING TO LOGIN")
+                }
         }
-
-
-
-
     }
-
-    private static void AccountUpdate(Scanner scanner){
+    private static void AccountUpdate(Scanner scanner) {
         System.out.println("Please select what you want to update on your account:");
         System.out.println("Update: (U)sername or (P)assword");
-
         String selection = scanner.next();
         String selectionJustified = selection.toLowerCase();
-
-        switch(selectionJustified){
+        switch (selectionJustified) {
             case "u", "username":
                 System.out.print("ENTER YOUR NEW USERNAME: ");
                 String user = scanner.next();
-                //Account.updateUsername(currentUser, user);
+                System.out.println();
+                try {
+                    Account.updateUsername(currentUser, user);
+                } catch (Exception e) {
+                    System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
+                    MainView(scanner);
+                }
+                break;
+            case "p", "password":
+                System.out.print("ENTER YOUR NEW PASSWORD: ");
+                String newPass = scanner.nextLine();
+                System.out.println();
+                System.out.print("Confirm Password: ");
+                String newPassTwo = scanner.nextLine();
 
+                if (newPass.equals(newPassTwo)) {
+                    System.out.println();
+                    System.out.println("Password Updated!");
+                } else {
+                    System.out.println();
+                    System.out.println("Passwords did not match, returning to menu");
+                    AccountUpdate(scanner);
+                }
+                break;
         }
-
-
+        System.out.println("DO YOU WANT TO CONTINUE TO EDIT YOUR ACCOUNT? Y/N");
+        String selector = scanner.next();
+        String selectorJustified = selector.toLowerCase();
+        if(selectorJustified == "y"){
+            AccountUpdate(scanner);
+        }
+        else{
+            System.out.println("RETURNING TO MAIN MENU");
+        }
     }
-
     private static String SelectRoom(Scanner scanner){
         System.out.println("Enter the name of the Chatroom you want to join:");
         String input = scanner.next();
@@ -149,7 +170,6 @@ public class Main {
 
         return inputJustified;
     }
-
     private static boolean NameWorks(String subject){
         int length = subject.length();
 
