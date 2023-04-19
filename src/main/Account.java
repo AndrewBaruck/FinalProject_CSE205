@@ -13,6 +13,7 @@ public abstract class Account {
 	 *  chatroom2
 	 *  chatroom3
 	 */
+	
 	public static void updateUsername(String old1, String new1) throws IOException {
 		File inputFile = new File("user_" + old1 + ".txt");
 		Scanner in = new Scanner(inputFile);
@@ -67,7 +68,7 @@ public abstract class Account {
 		return inputFile.delete();
 	}
 	
-	public static String[] getChatrooms(String username) throws IOException {
+	private static String[] getChatrooms(String username) throws IOException {
 		File inputFile = new File("user_" + username + ".txt");
 		Scanner in = new Scanner(inputFile);
 		String chatrooms = "";
@@ -91,7 +92,7 @@ public abstract class Account {
 		out.close();
 	}
 	
-	public static void addChatroom(String username, String chatroomName) throws IOException {
+	private static void addChatroom(String username, String chatroomName) throws IOException {
 		File inputFile = new File("user_" + username + ".txt");
 		Scanner in = new Scanner(inputFile);
 		String fileText = "";
@@ -107,7 +108,7 @@ public abstract class Account {
 		out.close();
 	}
 	
-	public static void removeChatroom(String username, String chatroomName) throws IOException {
+	private static void removeChatroom(String username, String chatroomName) throws IOException {
 		File inputFile = new File("user_" + username + ".txt");
 		Scanner in = new Scanner(inputFile);
 		String fileText = "";
