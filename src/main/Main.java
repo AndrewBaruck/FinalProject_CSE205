@@ -22,8 +22,8 @@ public class Main {
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
 
-        Account.deleteAllAccounts();
-        Chatroom.deleteAllChatrooms();
+        // Account.deleteAllAccounts();
+       // Chatroom.deleteAllChatrooms();
 
         currentUser = InitialView(scnr);
 
@@ -65,7 +65,7 @@ public class Main {
         return currUser;
     }
 
-    private static void MainView(Scanner scnr){
+    private static void MainView(Scanner scnr) throws IOException {
         System.out.println("Login Sucessful!");
         System.out.println("Please select from the following options" );
         System.out.println("(J)oin,(C)reate,(A)ccount,(L)ougout");
@@ -103,6 +103,7 @@ public class Main {
                     roomName = createdName;
                     System.out.println("Sucessfully joined "
                             + roomName + " Chatroom!");
+                    Chatroom.createChatroom(roomName);
                     currentRoom = roomName;
                 }
                 else{
@@ -120,6 +121,8 @@ public class Main {
                 String confirmationJustified = confirmation.toLowerCase();
                 if(confirmationJustified.equals("y")){
                     System.out.println("LOGGED OUT, RETURNING TO LOGIN");
+                    currentUser = null;
+                    InitialView(scnr);
                 }
             default:
                 System.out.println("The input option does not exist!");
@@ -127,7 +130,7 @@ public class Main {
 
         }
     }
-    private static void AccountUpdate(Scanner scanner) {
+    private static void AccountUpdate(Scanner scanner) throws IOException {
         System.out.println("Please select what you want to update on your account:");
         System.out.println("Update: (U)sername or (P)assword");
         String selection = scanner.nextLine();
@@ -137,11 +140,18 @@ public class Main {
                 System.out.print("ENTER YOUR NEW USERNAME: ");
                 String user = scanner.nextLine();
                 System.out.println();
-                try {
-                    Account.updateUsername(currentUser, user);
-                } catch (Exception e) {
-                    System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
-                    MainView(scanner);
+                boolean hell = Account.usernameExists(user);
+                if(hell) {
+                    try {
+                        Account.updateUsername(currentUser, user);
+                    } catch (Exception e) {
+                        System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
+                        MainView(scanner);
+                    }
+                }
+                else{
+                    System.out.println("ACCOUNT EXISTS ALREADY PICK SOMETHING FREE NEXT TIME");
+                    AccountUpdate(scanner);
                 }
                 break;
             case "p", "password":
