@@ -23,8 +23,8 @@ public class Main {
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
 
-        // Account.deleteAllAccounts();
-       // Chatroom.deleteAllChatrooms();
+//        Account.deleteAllAccounts();
+//        Chatroom.deleteAllChatrooms();
 
         currentUser = InitialView(scnr);
 
@@ -262,6 +262,7 @@ public class Main {
         String newPassword = input;
         Account.createAccount(newUsername, newPassword);
         System.out.println("\nAccount successfully created!");
+        currentUser = newUsername;
         return newUsername;
         //TODO optional: automatically log them in, otherwise just call login method
     }
@@ -275,6 +276,8 @@ public class Main {
             input = scnr.nextLine();
         }
         String currentUsername = input;
+        currentUser = currentUsername;
+
         String password = Account.getPassword(currentUsername);
         System.out.print("\nEnter your password: ");
         input = scnr.nextLine();
@@ -324,11 +327,15 @@ public class Main {
             }
 
         }
-        System.out.println("Are you sure you want to leave chat room? y/n" + currentRoom);
+        System.out.println("ARE YOU SURE YOU WANT TO LEAVE THE CHATROOM? y/n");
         String confirmation = scnr.nextLine();
 
         if(confirmation.equals("y")) {
             MainView(scnr);
+
+        }
+        else if(confirmation.equals("n")) {
+            roomView(scnr, currentUser);
 
         }
 

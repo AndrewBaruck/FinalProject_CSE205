@@ -134,7 +134,7 @@ public abstract class Chatroom {
 	}
 	
 	public static boolean chatroomExists(String chatroomName) {
-		File inputFile = new File("user_" + chatroomName + ".txt");
+		File inputFile = new File("chatroom_" + chatroomName + ".txt");
 		return inputFile.exists();
 	}
 	
