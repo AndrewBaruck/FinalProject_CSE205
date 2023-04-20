@@ -36,7 +36,7 @@ public class Main {
         System.out.println("(R)egister, (L)ogin, (Q)uit");
         System.out.println("---------------------------");
 
-        String input = scnr.next();
+        String input = scnr.nextLine();
         String currUser = "";
         input = input.toLowerCase();
         switch(input) {
@@ -68,7 +68,7 @@ public class Main {
         System.out.println("Please select from the following options" );
         System.out.println("(J)oin,(C)reate,(A)ccount,(L)ougout");
 
-        String selection = scnr.next();
+        String selection = scnr.nextLine();
         String selectionJustified = selection.toLowerCase();
 
         String roomName;
@@ -81,10 +81,11 @@ public class Main {
                     System.out.println();
                     System.out.println("Sucessfully joined "
                     + roomName + " Chatroom!");
+                    currentRoom = roomName;
                 }
                 else{
                     System.out.println("Chatroom " +
-                            roomInput + "does not exist, create it!");
+                            roomInput + " does not exist, create it!");
                 }
                 MainView(scnr);
                 break;
@@ -92,7 +93,7 @@ public class Main {
                 String createdName;
                 System.out.println("Enter the name of the room you would like to create");
                 System.out.println("Room name must only be numbers and letters");
-                String inputName = scnr.next();
+                String inputName = scnr.nextLine();
                 boolean checker = NameWorks(inputName.toLowerCase());
                 if (checker = true) {
                     createdName = inputName.toLowerCase();
@@ -100,6 +101,7 @@ public class Main {
                     roomName = createdName;
                     System.out.println("Sucessfully joined "
                             + roomName + " Chatroom!");
+                    currentRoom = roomName;
                 }
                 else{
                     System.out.println("The name you have entered is not allowed!");
@@ -115,19 +117,23 @@ public class Main {
                 String confirmation = scnr.nextLine();
                 String confirmationJustified = confirmation.toLowerCase();
                 if(confirmationJustified.equals("y")){
-                    System.out.println("LOGGED OUT, RETURNING TO LOGIN")
+                    System.out.println("LOGGED OUT, RETURNING TO LOGIN");
                 }
+            default:
+                System.out.println("The input option does not exist!");
+                MainView(scnr);
+
         }
     }
     private static void AccountUpdate(Scanner scanner) {
         System.out.println("Please select what you want to update on your account:");
         System.out.println("Update: (U)sername or (P)assword");
-        String selection = scanner.next();
+        String selection = scanner.nextLine();
         String selectionJustified = selection.toLowerCase();
         switch (selectionJustified) {
             case "u", "username":
                 System.out.print("ENTER YOUR NEW USERNAME: ");
-                String user = scanner.next();
+                String user = scanner.nextLine();
                 System.out.println();
                 try {
                     Account.updateUsername(currentUser, user);
@@ -154,7 +160,7 @@ public class Main {
                 break;
         }
         System.out.println("DO YOU WANT TO CONTINUE TO EDIT YOUR ACCOUNT? Y/N");
-        String selector = scanner.next();
+        String selector = scanner.nextLine();
         String selectorJustified = selector.toLowerCase();
         if(selectorJustified == "y"){
             AccountUpdate(scanner);
@@ -165,7 +171,7 @@ public class Main {
     }
     private static String SelectRoom(Scanner scanner){
         System.out.println("Enter the name of the Chatroom you want to join:");
-        String input = scanner.next();
+        String input = scanner.nextLine();
         String inputJustified = input.toLowerCase();
 
         return inputJustified;
@@ -238,7 +244,7 @@ public class Main {
             input = scnr.nextLine();
         }
         System.out.print("\nSuccessfully logged in!");
-        return currentUsername;
+        return currentUsername; //TODO
         //TODO finish login idk set current account logged in, open new menu etc
     }
 
