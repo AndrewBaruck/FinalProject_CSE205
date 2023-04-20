@@ -253,31 +253,47 @@ public class Main {
         System.exit(0);
     }
 
-    static void roomView(Scanner scnr, String currUser) {
+    static void roomView(Scanner scnr, String currUser) throws IOException {
         System.out.printf("Welcome to \"%s\" \"%s\"\n", currentRoom,currUser);
         System.out.println("Type \"/help\" for help.");
         System.out.println("---------------------------");
-//        Chatroom.getMessages(currentRoom);
 
         String input = "";
+
         while(!input.equals("/leave")) {
             input = scnr.nextLine();
+
+            input = scnr.nextLine();
             if(input.equals("/list")) {
-//                Chatroom.getUsers(currentRoom);
+                Chatroom.printActiveUsers(currentRoom);
 
             }
             else if(input.equals("/history")) {
-
+                Chatroom.getMessages(currentRoom);
 
             }
             else if(input.equals("/help")) {
-
+                System.out.println("List of commands: ");
+                System.out.println("/list: Return a list of users currently in this chat room");
+                System.out.println("/leave: Exits the chat room");
+                System.out.println("/history: Print all past messages from the room");
+                System.out.println("/help: Prints list of available commands");
 
             }
-//            Chatroom.addMessage(currentRoom, input);
-            System.out.printf("%s: %s\n", currUser, input);
+            else {
+                Chatroom.addMessage(currentRoom, currentUser, input);
+
+            }
 
         }
+        System.out.println("Are you sure you want to leave chat room? y/n" + currentRoom);
+        String confirmation = scnr.nextLine();
+
+        if(confirmation.equals("y")) {
+            MainView(scnr);
+
+        }
+
 
 
     }
