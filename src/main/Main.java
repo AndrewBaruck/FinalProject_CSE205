@@ -6,6 +6,7 @@ import java.io.*;
 public class Main {
     static String currentUser;
     static String currentRoom;
+    static int stupidCounter = 0;
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
 
@@ -33,7 +34,7 @@ public class Main {
 
     static String InitialView(Scanner scnr) throws IOException {
 
-        System.out.println("Welcome to Chat App!");
+        System.out.println("Welcome to Chatty Ckatthy App!");
         System.out.println("Please select:");
         System.out.println("(R)egister, (L)ogin, (Q)uit");
         System.out.println("---------------------------");
@@ -66,7 +67,7 @@ public class Main {
     }
 
     private static void MainView(Scanner scnr) throws IOException {
-        System.out.println("Login Sucessful!");
+        //System.out.println("Login Sucessful!");
         System.out.println("Please select from the following options" );
         System.out.println("(J)oin,(C)reate,(A)ccount,(L)ougout");
 
@@ -84,10 +85,15 @@ public class Main {
                     System.out.println("Sucessfully joined "
                     + roomName + " Chatroom!");
                     currentRoom = roomName;
+                    roomView(scnr, currentUser);
                 }
                 else{
                     System.out.println("Chatroom " +
                             roomInput + " does not exist, create it!");
+                    stupidCounter++;
+                    if(stupidCounter > 1){
+                        StupidFixer("ROOM JOIN MENU");
+                    }
                 }
                 MainView(scnr);
                 break;
@@ -108,6 +114,10 @@ public class Main {
                 }
                 else{
                     System.out.println("The name you have entered is not allowed!");
+                    stupidCounter++;
+                    if(stupidCounter > 1){
+                        StupidFixer("USER CREATION");
+                    }
                     MainView(scnr);
                     break;
                 }
@@ -126,9 +136,18 @@ public class Main {
                 }
             default:
                 System.out.println("The input option does not exist!");
+                stupidCounter++;
+                if(stupidCounter > 1){
+                    StupidFixer("OPTION MENU");
+                }
                 MainView(scnr);
 
         }
+    }
+
+    private static void StupidFixer(String a){
+        System.out.println("YOU HAVE BEEN STUPID " + stupidCounter + " TIMES!");
+        System.out.println("DONT BE STUPID NEXT TIME IN THE " + a);
     }
     private static void AccountUpdate(Scanner scanner) throws IOException {
         System.out.println("Please select what you want to update on your account:");
@@ -146,11 +165,19 @@ public class Main {
                         Account.updateUsername(currentUser, user);
                     } catch (Exception e) {
                         System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
+                        stupidCounter++;
+                        if(stupidCounter > 1){
+                            StupidFixer("FATAL EROOR");
+                        }
                         MainView(scanner);
                     }
                 }
                 else{
                     System.out.println("ACCOUNT EXISTS ALREADY PICK SOMETHING FREE NEXT TIME");
+                    stupidCounter++;
+                    if(stupidCounter > 1){
+                        StupidFixer("UN UPDATER");
+                    }
                     AccountUpdate(scanner);
                 }
                 break;
