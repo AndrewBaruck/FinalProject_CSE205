@@ -85,6 +85,7 @@ public class Main {
                     System.out.println("Sucessfully joined "
                     + roomName + " Chatroom!");
                     currentRoom = roomName;
+                    Chatroom.addActiveUser(currentUser, roomName);
                     roomView(scnr, currentUser);
                 }
                 else{
@@ -110,6 +111,7 @@ public class Main {
                     System.out.println("Sucessfully joined "
                             + roomName + " Chatroom!");
                     Chatroom.createChatroom(roomName);
+                    Chatroom.addActiveUser(currentUser, roomName);
                     currentRoom = roomName;
                 }
                 else{
@@ -302,7 +304,12 @@ public class Main {
 
         String input = "";
 
+        int mgsLength = Chatroom.getMessages(currentRoom).length;
         while(!input.equals("/leave")) {
+            try {Thread.sleep(500);} catch(InterruptedException e) {}
+
+            if (Chatroom.getMessages(currentRoom).length>mgsLength) {System.out.println(Chatroom.getMessages(currentRoom)[Chatroom.getMessages(currentRoom).length-1]);mgsLength = Chatroom.getMessages(currentRoom).length;}
+
             input = scnr.nextLine();
 
             if(input.equals("/list")) {
@@ -310,7 +317,12 @@ public class Main {
 
             }
             else if(input.equals("/history")) {
-                Chatroom.getMessages(currentRoom);
+                String[] messages = Chatroom.getMessages(currentRoom);
+
+                for(int i = 0; i < messages.length; i++) {
+                    System.out.println(messages[i]);
+
+                }
 
             }
             else if(input.equals("/help")) {
