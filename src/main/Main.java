@@ -22,10 +22,12 @@ public class Main {
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
 
+        Account.deleteAllAccounts();
+        Chatroom.deleteAllChatrooms();
+
         currentUser = InitialView(scnr);
 
         roomView(scnr, currentUser);
-        String currRoom;
 
     }
 
@@ -195,7 +197,7 @@ public class Main {
 
     static String register(Scanner scnr) throws IOException {
         System.out.print("\nEnter a valid username: ");
-        scnr.nextLine();
+
         String input = scnr.nextLine();
         while (input.contains(" ") || Account.usernameExists(input)) {
             if (input.contains(" ")) {
@@ -223,7 +225,7 @@ public class Main {
 
     static String login(Scanner scnr) throws IOException {
         System.out.print("\nEnter your username: ");
-        scnr.nextLine();
+
         String input = scnr.nextLine();
         while (!Account.usernameExists(input)) {
             System.out.print("Username does not exist. Please enter a valid username: ");
@@ -257,7 +259,6 @@ public class Main {
         while(!input.equals("/leave")) {
             input = scnr.nextLine();
 
-            input = scnr.nextLine();
             if(input.equals("/list")) {
                 Chatroom.printActiveUsers(currentRoom);
 
