@@ -306,9 +306,6 @@ public class Main {
 
         int mgsLength = Chatroom.getMessages(currentRoom).length;
         while(!input.equals("/leave")) {
-            try {Thread.sleep(500);} catch(InterruptedException e) {}
-
-            if (Chatroom.getMessages(currentRoom).length>mgsLength) {System.out.println(Chatroom.getMessages(currentRoom)[Chatroom.getMessages(currentRoom).length-1]);mgsLength = Chatroom.getMessages(currentRoom).length;}
 
             input = scnr.nextLine();
 
@@ -337,6 +334,10 @@ public class Main {
                 Chatroom.addMessage(currentRoom, currentUser, input);
 
             }
+
+            try {Thread.sleep(500);} catch(InterruptedException e) {}
+
+            if (Chatroom.getMessages(currentRoom).length>mgsLength) {System.out.println(Chatroom.getMessages(currentRoom)[Chatroom.getMessages(currentRoom).length-1]);mgsLength = Chatroom.getMessages(currentRoom).length;}
 
         }
         System.out.println("ARE YOU SURE YOU WANT TO LEAVE THE CHATROOM? y/n");
