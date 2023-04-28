@@ -28,7 +28,7 @@ public class Main {
 
         currentUser = InitialView(scnr);
 
-        System.out.println("7");
+
         roomView(scnr, currentUser);
 
     }
@@ -112,13 +112,13 @@ public class Main {
 
                     createdName = inputName.toLowerCase();
                     System.out.println("Chatroom created sucessfully, joining!");
-                    roomName = createdName;  System.out.println("2");
-                    currentRoom = roomName; System.out.println("3");
+                    roomName = createdName;
+                    currentRoom = roomName;
                     System.out.println("Sucessfully joined "
                             + roomName + " Chatroom!");
-                    System.out.println("4");
-                    Chatroom.createChatroom(roomName);System.out.println("5");
-                    Chatroom.addActiveUser(currentUser, roomName);System.out.println("6");
+
+                    Chatroom.createChatroom(roomName);
+                    Chatroom.addActiveUser(currentUser, roomName);
                     roomView(scnr, currentUser);
 
                 }
