@@ -311,11 +311,11 @@ public class Main {
 
         String input;
         boolean messaging = true;
-        
         boolean firstLoop = true;
 
         checkThread check = new checkThread();
         check.setCurrentRoom(currentRoom);
+
         check.start();
 
         while(messaging == true) {
@@ -355,7 +355,6 @@ public class Main {
                 Chatroom.addMessage(currentRoom, currentUser, input);
 
             }
-
         }
 
         System.out.println("ARE YOU SURE YOU WANT TO LEAVE THE CHATROOM? Y/N");
