@@ -309,12 +309,18 @@ public class Main {
 
         String input;
         boolean messaging = true;
+        
+        boolean firstLoop = true;
 
         checkThread check = new checkThread();
         check.setCurrentRoom(currentRoom);
         check.start();
 
         while(messaging == true) {
+            if (firstLoop) {
+        		Chatroom.addJoinMessage(currUser, currentRoom);
+        		firstLoop = false;
+        	}
             input = scnr.nextLine();
 
             if(input.equals("/list")) {
