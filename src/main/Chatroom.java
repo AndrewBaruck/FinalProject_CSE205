@@ -127,6 +127,22 @@ public abstract class Chatroom {
 		out.close();
 	}
 	
+	public static void addBlankLine(String chatroomName) throws IOException {
+		File inputFile = new File("chatroom_" + chatroomName + ".txt");
+		Scanner in = new Scanner(inputFile);
+		String fileText = "";
+		while (in.hasNextLine()) {
+			fileText += in.nextLine() + "\n";
+		}
+		
+		PrintWriter out = new PrintWriter("chatroom_" + chatroomName + ".txt");
+		out.print(fileText);
+		out.println("      ");
+		
+		in.close();
+		out.close();
+	}
+	
 	public static void clearMessages(String chatroomName) throws IOException {
 		PrintWriter out = new PrintWriter("chatroom_" + chatroomName + ".txt");
 		out.print("\n");
