@@ -367,10 +367,11 @@ public class Main {
             check.stopThread();
 
         }
-        else {
+        else if(confirmation.equals("n")) {
             roomView(scnr, currentUser);
 
-        }
+        } else { MainView(scnr);
+            check.stopThread();}
 
     }
 }
