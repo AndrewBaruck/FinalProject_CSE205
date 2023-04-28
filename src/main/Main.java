@@ -367,7 +367,7 @@ public class Main {
             check.stopThread();
 
         }
-        else if(confirmation.equals("n")) {
+        else {
             roomView(scnr, currentUser);
 
         }
