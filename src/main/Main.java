@@ -28,9 +28,12 @@ public class Main {
 
         currentUser = InitialView(scnr);
 
+        System.out.println("7");
         roomView(scnr, currentUser);
 
     }
+
+
 
     static String InitialView(Scanner scnr) throws IOException {
 
@@ -82,7 +85,7 @@ public class Main {
                 if(Chatroom.chatroomExists(roomInput) == true){
                     roomName = roomInput;
                     System.out.println();
-                    System.out.println("Sucessfully joined "
+                    System.out.println("Successfully joined "
                     + roomName + " Chatroom!");
                     currentRoom = roomName;
                     Chatroom.addActiveUser(currentUser, roomName);
@@ -105,22 +108,23 @@ public class Main {
                 String inputName = scnr.nextLine();
                 boolean checker = NameWorks(inputName.toLowerCase());
                 boolean doesExist = Chatroom.chatroomExists(inputName.toLowerCase());
-                if (checker == true && doesExist == false) {
+                if (checker == true && doesExist == false ) {
+
                     createdName = inputName.toLowerCase();
                     System.out.println("Chatroom created sucessfully, joining!");
-                    roomName = createdName;
+                    roomName = createdName;  System.out.println("2");
+                    currentRoom = roomName; System.out.println("3");
                     System.out.println("Sucessfully joined "
                             + roomName + " Chatroom!");
-                    Chatroom.createChatroom(roomName);
-                    Chatroom.addActiveUser(currentUser, roomName);
-                    currentRoom = roomName;
+                    System.out.println("4");
+                    Chatroom.createChatroom(roomName);System.out.println("5");
+                    Chatroom.addActiveUser(currentUser, roomName);System.out.println("6");
+                    roomView(scnr, currentUser);
+
                 }
                 else{
                     System.out.println("THE NAME YOU HAVE ENTERED IS NOT ALLOWED!");
-                    stupidCounter++;
-                    if(stupidCounter > 1){
 
-                    }
                     MainView(scnr);
                     break;
                 }
@@ -161,7 +165,9 @@ public class Main {
                 boolean hell = Account.usernameExists(user);
                 if(!hell) {
                     try {
+                        //NEEDS TO GO AFTER
                         Account.updateUsername(currentUser, user);
+                        currentUser = user;
                     } catch (Exception e) {
                         System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
                         stupidCounter++;
