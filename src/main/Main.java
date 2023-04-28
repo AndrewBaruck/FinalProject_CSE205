@@ -104,7 +104,8 @@ public class Main {
                 System.out.println("Room name must only be numbers and letters");
                 String inputName = scnr.nextLine();
                 boolean checker = NameWorks(inputName.toLowerCase());
-                if (checker = true) {
+                boolean doesExist = Chatroom.chatroomExists(inputName.toLowerCase());
+                if (checker == true && doesExist == false) {
                     createdName = inputName.toLowerCase();
                     System.out.println("Chatroom created sucessfully, joining!");
                     roomName = createdName;
