@@ -115,7 +115,7 @@ public class Main {
                     currentRoom = roomName;
                 }
                 else{
-                    System.out.println("The name you have entered is not allowed!");
+                    System.out.println("THE NAME YOU HAVE ENTERED IS NOT ALLOWED!");
                     stupidCounter++;
                     if(stupidCounter > 1){
 
@@ -137,7 +137,7 @@ public class Main {
                     InitialView(scnr);
                 }
             default:
-                System.out.println("The input option does not exist!");
+                System.out.println("THE INPUT OPTION DOES NOT EXIST");
                 stupidCounter++;
                 if(stupidCounter > 1){
 
@@ -189,6 +189,7 @@ public class Main {
                 if (newPass.equals(newPassTwo)) {
                     System.out.println();
                     System.out.println("Password Updated!");
+                    Account.updatePassword(currentUser, newPassTwo);
                 } else {
                     System.out.println();
                     System.out.println("Passwords did not match, returning to menu");
@@ -199,8 +200,9 @@ public class Main {
         System.out.println("DO YOU WANT TO CONTINUE TO EDIT YOUR ACCOUNT? Y/N");
         String selector = scanner.nextLine();
         String selectorJustified = selector.toLowerCase();
-        if(selectorJustified == "y"){
+        if(selectorJustified.equals("y")){
             AccountUpdate(scanner);
+            //:)
         }
         else{
             System.out.println("RETURNING TO MAIN MENU");
