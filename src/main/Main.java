@@ -93,7 +93,7 @@ public class Main {
                             roomInput + " does not exist, create it!");
                     stupidCounter++;
                     if(stupidCounter > 1){
-                        StupidFixer("ROOM JOIN MENU");
+
                     }
                 }
                 MainView(scnr);
@@ -118,7 +118,7 @@ public class Main {
                     System.out.println("The name you have entered is not allowed!");
                     stupidCounter++;
                     if(stupidCounter > 1){
-                        StupidFixer("USER CREATION");
+
                     }
                     MainView(scnr);
                     break;
@@ -140,17 +140,13 @@ public class Main {
                 System.out.println("The input option does not exist!");
                 stupidCounter++;
                 if(stupidCounter > 1){
-                    StupidFixer("OPTION MENU");
+
                 }
                 MainView(scnr);
 
         }
     }
 
-    private static void StupidFixer(String a){
-        System.out.println("YOU HAVE BEEN STUPID " + stupidCounter + " TIMES!");
-        System.out.println("DONT BE STUPID NEXT TIME IN THE " + a);
-    }
     private static void AccountUpdate(Scanner scanner) throws IOException {
         System.out.println("Please select what you want to update on your account:");
         System.out.println("Update: (U)sername or (P)assword");
@@ -162,14 +158,14 @@ public class Main {
                 String user = scanner.nextLine();
                 System.out.println();
                 boolean hell = Account.usernameExists(user);
-                if(hell) {
+                if(!hell) {
                     try {
                         Account.updateUsername(currentUser, user);
                     } catch (Exception e) {
                         System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
                         stupidCounter++;
                         if(stupidCounter > 1){
-                            StupidFixer("FATAL EROOR");
+
                         }
                         MainView(scanner);
                     }
@@ -178,7 +174,7 @@ public class Main {
                     System.out.println("ACCOUNT EXISTS ALREADY PICK SOMETHING FREE NEXT TIME");
                     stupidCounter++;
                     if(stupidCounter > 1){
-                        StupidFixer("UN UPDATER");
+
                     }
                     AccountUpdate(scanner);
                 }
@@ -208,6 +204,7 @@ public class Main {
         }
         else{
             System.out.println("RETURNING TO MAIN MENU");
+            MainView(scanner);
         }
     }
     private static String SelectRoom(Scanner scanner){
@@ -254,6 +251,7 @@ public class Main {
             }
         }
         String newUsername = input;
+        
 
         System.out.print("\nEnter a valid password: ");
         input = scnr.nextLine();
@@ -262,6 +260,7 @@ public class Main {
             input = scnr.nextLine();
         }
         String newPassword = input;
+
         Account.createAccount(newUsername, newPassword);
         System.out.println("\nAccount successfully created!");
         currentUser = newUsername;
@@ -274,6 +273,10 @@ public class Main {
 
         String input = scnr.nextLine();
         while (!Account.usernameExists(input)) {
+            stupidCounter++;
+            if(stupidCounter > 1){
+
+            }
             System.out.print("Username does not exist. Please enter a valid username: ");
             input = scnr.nextLine();
         }
@@ -284,10 +287,11 @@ public class Main {
         System.out.print("\nEnter your password: ");
         input = scnr.nextLine();
         while (!(input.equals(password))) {
+
             System.out.print("Incorrect Password! Try again: ");
             input = scnr.nextLine();
         }
-        System.out.print("\nSuccessfully logged in!");
+        System.out.println("Successfully logged in!");
         return currentUsername; //TODO
         //TODO finish login idk set current account logged in, open new menu etc
     }
