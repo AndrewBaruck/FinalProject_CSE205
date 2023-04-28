@@ -16,15 +16,15 @@ public class Main {
 //		Account.addChatroom("user1", "chatroom2");
 //		Account.addChatroom("user1", "chatroom3");
 //		Account.removeChatroom("user1", "chatroom3");
-
+//
 //		Chatroom.deleteChatroom("chat1");
 //		Chatroom.createChatroom("chat1");
 //		Chatroom.addMessage("chat1", "bob", "hi guys");
 //		Chatroom.addMessage("chat1", "bill", "hey");
 //		Chatroom.clearMessages("chat1");
-
-        Account.deleteAllAccounts();
-        Chatroom.deleteAllChatrooms();
+//
+//        Account.deleteAllAccounts();
+//        Chatroom.deleteAllChatrooms();
 
         currentUser = InitialView(scnr);
 
@@ -302,12 +302,12 @@ public class Main {
         System.out.println("Type \"/help\" for help.");
         System.out.println("---------------------------");
 
-        checkThread check = new checkThread();
+
         String input;
         boolean messaging = true;
 
+        checkThread check = new checkThread();
         check.setCurrentRoom(currentRoom);
-
         check.start();
 
         while(messaging == true) {
@@ -336,8 +336,7 @@ public class Main {
             }
             else if(input.equals("/leave")) {
                 messaging = false;
-                check.interrupt();
-                check.stop();
+                check.stopThread();
 
             }
             else {
@@ -352,7 +351,7 @@ public class Main {
 
         if(confirmation.equals("y")) {
             MainView(scnr);
-            check.stop();
+            check.stopThread();
 
         }
         else if(confirmation.equals("n")) {
@@ -361,14 +360,14 @@ public class Main {
         }
 
     }
-
 }
 class checkThread extends Thread {
     private String currentRoom;
+    private volatile boolean checking;
     @Override
     public void run() {
         int mgsLength = 0;
-        boolean checking = true;
+        checking = true;
 
         try {
             mgsLength = Chatroom.getMessages(currentRoom).length;
@@ -379,44 +378,29 @@ class checkThread extends Thread {
 
         }
 
-
-        do {
-            try {
-                Thread.sleep(10);
-
-            } catch (InterruptedException e) {
-
-
-            }
+        while (checking == true){
             try {
                 if (Chatroom.getMessages(currentRoom).length > mgsLength) {
                     System.out.println(Chatroom.getMessages(currentRoom)[Chatroom.getMessages(currentRoom).length - 1]);
                     mgsLength = Chatroom.getMessages(currentRoom).length;
 
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
 
 
             }
-            try {
-                Thread.sleep(10);
 
-            }
-            catch (InterruptedException e) {
-                checking = false;
-
-            }
-            if(Thread.currentThread().isInterrupted() == true) {
-                checking = false;
-
-            }
-        } while (checking == true);
+        }
 
     }
     public void setCurrentRoom(String room) {
         this.currentRoom = room;
 
     }
+    public void stopThread() {
+        checking = false;
+
+    }
 
 }
-
