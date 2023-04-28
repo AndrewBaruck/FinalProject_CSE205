@@ -127,7 +127,7 @@ public abstract class Chatroom {
 		out.close();
 	}
 	
-	public static void addBlankLine(String chatroomName) throws IOException {
+	public static void addJoinMessage(String username, String chatroomName) throws IOException {
 		File inputFile = new File("chatroom_" + chatroomName + ".txt");
 		Scanner in = new Scanner(inputFile);
 		String fileText = "";
@@ -137,7 +137,7 @@ public abstract class Chatroom {
 		
 		PrintWriter out = new PrintWriter("chatroom_" + chatroomName + ".txt");
 		out.print(fileText);
-		out.println("      ");
+		out.println(username + " joined the room");
 		
 		in.close();
 		out.close();
