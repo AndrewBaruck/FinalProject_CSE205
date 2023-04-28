@@ -16,18 +16,9 @@ public abstract class Account {
 	
 	public static void updateUsername(String old1, String new1) throws IOException {
 		File inputFile = new File("user_" + old1 + ".txt");
-		Scanner in = new Scanner(inputFile);
-		String fileText = "";
-		while (in.hasNextLine()) {
-			fileText += in.nextLine() + "\n";
-		}
-		in.close();
-		//System.out.println("FILETEXT\n" + fileText + "\n---------------");
-		PrintWriter out = new PrintWriter("user_" + new1 + ".txt");
-		out.print(fileText);
-		out.flush();
-		boolean deleteSuccess = deleteAccount(old1);
-		if (!deleteSuccess) System.out.println("OLD FILE DID NOT DELETE");
+		File newFile = new File("user_" + new1 + ".txt");
+		if(!inputFile.renameTo(newFile)) System.out.println("Username could not be updated because of an error with the File.renameTo() method. Try again later.");
+		return;
 	}
 	
 	public static void updatePassword(String username, String newPassword) throws IOException {
