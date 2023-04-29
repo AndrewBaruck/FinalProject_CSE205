@@ -366,13 +366,14 @@ public class Main {
 
         System.out.println("ARE YOU SURE YOU WANT TO LEAVE THE CHATROOM? Y/N");
         String confirmation = scnr.nextLine();
+        confirmation.toLowerCase();
 
-        if(confirmation.equals("y")) {
+        if(confirmation.equals("y") || confirmation.equals("yes")) {
             MainView(scnr);
             check.stopThread();
 
         }
-        else if(confirmation.equals("n")) {
+        else if(confirmation.equals("n") || confirmation.equals("no")) {
             roomView(scnr, currentUser);
 
         } else { MainView(scnr);
