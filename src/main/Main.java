@@ -2,39 +2,15 @@ package main;
 
 import java.util.Scanner;
 import java.io.*;
-
 public class Main {
     static String currentUser;
     static String currentRoom;
-    static int stupidCounter = 0;
+
     public static void main(String[] args) throws IOException {
         Scanner scnr = new Scanner(System.in);
-
-//		Account.deleteAccount("user1");
-//		Account.createAccount("user1", "password1");
-//		Account.addChatroom("user1", "chatroom1");
-//		Account.addChatroom("user1", "chatroom2");
-//		Account.addChatroom("user1", "chatroom3");
-//		Account.removeChatroom("user1", "chatroom3");
-//
-//		Chatroom.deleteChatroom("chat1");
-//		Chatroom.createChatroom("chat1");
-//		Chatroom.addMessage("chat1", "bob", "hi guys");
-//		Chatroom.addMessage("chat1", "bill", "hey");
-//		Chatroom.clearMessages("chat1");
-//
-//        Account.deleteAllAccounts();
-//        Chatroom.deleteAllChatrooms();
-
         currentUser = InitialView(scnr);
-
-
         roomView(scnr, currentUser);
-
     }
-
-
-
     static String InitialView(Scanner scnr) throws IOException {
 
         System.out.println("Welcome to Chatty Ckatthy App!");
@@ -82,7 +58,7 @@ public class Main {
         switch (selectionJustified) {
             case "j", "join":
                 String roomInput = SelectRoom(scnr);
-                if(Chatroom.chatroomExists(roomInput) == true){
+                if(Chatroom.chatroomExists(roomInput)){
                     roomName = roomInput;
                     System.out.println();
                     System.out.println("Successfully joined "
@@ -94,10 +70,7 @@ public class Main {
                 else{
                     System.out.println("Chatroom " +
                             roomInput + " does not exist, create it!");
-                    stupidCounter++;
-                    if(stupidCounter > 1){
 
-                    }
                 }
                 MainView(scnr);
                 break;
@@ -108,7 +81,7 @@ public class Main {
                 String inputName = scnr.nextLine();
                 boolean checker = NameWorks(inputName.toLowerCase());
                 boolean doesExist = Chatroom.chatroomExists(inputName.toLowerCase());
-                if (checker == true && doesExist == false ) {
+                if (checker && !doesExist) {
 
                     createdName = inputName.toLowerCase();
                     System.out.println("Chatroom created sucessfully, joining!");
@@ -143,10 +116,7 @@ public class Main {
                 }
             default:
                 System.out.println("THE INPUT OPTION DOES NOT EXIST");
-                stupidCounter++;
-                if(stupidCounter > 1){
 
-                }
                 MainView(scnr);
 
         }
@@ -158,41 +128,33 @@ public class Main {
         String selection = scanner.nextLine();
         String selectionJustified = selection.toLowerCase();
         switch (selectionJustified) {
-            case "u", "username":
+            case "u", "username" -> {
                 System.out.print("ENTER YOUR NEW USERNAME: ");
                 String user = scanner.nextLine();
                 System.out.println();
                 boolean hell = Account.usernameExists(user);
-                if(!hell) {
+                if (!hell) {
                     try {
                         //NEEDS TO GO AFTER
                         Account.updateUsername(currentUser, user);
                         currentUser = user;
                     } catch (Exception e) {
                         System.out.println(e + "SOMETHING WENT MAJORLY WRONG, YOU ARE SCREWWWWWWWED");
-                        stupidCounter++;
-                        if(stupidCounter > 1){
 
-                        }
                         MainView(scanner);
                     }
-                }
-                else{
+                } else {
                     System.out.println("ACCOUNT EXISTS ALREADY PICK SOMETHING FREE NEXT TIME");
-                    stupidCounter++;
-                    if(stupidCounter > 1){
 
-                    }
                     AccountUpdate(scanner);
                 }
-                break;
-            case "p", "password":
+            }
+            case "p", "password" -> {
                 System.out.print("ENTER YOUR NEW PASSWORD: ");
                 String newPass = scanner.nextLine();
                 System.out.println();
                 System.out.print("Confirm Password: ");
                 String newPassTwo = scanner.nextLine();
-
                 if (newPass.equals(newPassTwo)) {
                     System.out.println();
                     System.out.println("Password Updated!");
@@ -202,7 +164,7 @@ public class Main {
                     System.out.println("Passwords did not match, returning to menu");
                     AccountUpdate(scanner);
                 }
-                break;
+            }
         }
         System.out.println("DO YOU WANT TO CONTINUE TO EDIT YOUR ACCOUNT? Y/N");
         String selector = scanner.nextLine();
@@ -219,16 +181,15 @@ public class Main {
     private static String SelectRoom(Scanner scanner){
         System.out.println("Enter the name of the Chatroom you want to join:");
         String input = scanner.nextLine();
-        String inputJustified = input.toLowerCase();
 
-        return inputJustified;
+        return input.toLowerCase();
     }
     private static boolean NameWorks(String subject){
         int length = subject.length();
 
         for(int i = 0; i < length; i++ ){
             char a = subject.charAt(i);
-                if(IsNumberOrLetter(a) == true){
+                if(IsNumberOrLetter(a)){
 
                 }
                 else{
@@ -240,10 +201,7 @@ public class Main {
     }
 
     private static boolean IsNumberOrLetter(char character){
-        if(Character.isLetter(character) == true || Character.isDigit(character) == true){
-            return true;
-        }
-        return false;
+        return Character.isLetter(character) || Character.isDigit(character);
     }
 
     static String register(Scanner scnr) throws IOException {
@@ -274,7 +232,7 @@ public class Main {
         System.out.println("\nAccount successfully created!");
         currentUser = newUsername;
         return newUsername;
-        //TODO optional: automatically log them in, otherwise just call login method
+
     }
 
     static String login(Scanner scnr) throws IOException {
@@ -282,10 +240,7 @@ public class Main {
 
         String input = scnr.nextLine();
         while (!Account.usernameExists(input)) {
-            stupidCounter++;
-            if(stupidCounter > 1){
 
-            }
             System.out.print("Username does not exist. Please enter a valid username: ");
             input = scnr.nextLine();
         }
@@ -301,8 +256,8 @@ public class Main {
             input = scnr.nextLine();
         }
         System.out.println("Successfully logged in!");
-        return currentUsername; //TODO
-        //TODO finish login idk set current account logged in, open new menu etc
+        return currentUsername;
+
     }
 
     static void quit() {
@@ -325,7 +280,7 @@ public class Main {
 
         check.start();
 
-        while(messaging == true) {
+        while(messaging) {
             if (firstLoop) {
         		Chatroom.addJoinMessage(currUser, currentRoom);
         		firstLoop = false;
@@ -398,7 +353,7 @@ class checkThread extends Thread {
 
         }
 
-        while (checking == true){
+        while (checking){
             try {
                 if (Chatroom.getMessages(currentRoom).length > mgsLength) {
                     System.out.println(Chatroom.getMessages(currentRoom)[Chatroom.getMessages(currentRoom).length - 1]);
